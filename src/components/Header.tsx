@@ -23,7 +23,7 @@ export default function Header() {
 
 
 return (
-    <div className='fixed top-0 left-0 w-full h-[50px] bg-blue-600 text-sm text-white flex items-center justify-center'>
+    <div className='fixed top-0 left-0 w-full h-[50px] bg-[#4A4A4A] text-sm text-white flex items-center justify-center'>
         {username && <p>Hello, {username}!</p>}
     </div>
 )

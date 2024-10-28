@@ -69,7 +69,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  background-image: url('/img1.png');
+  background-color: #FFF9DB ;
+  background-image: url('/img4.png');
   min-width: 320px;
   min-height: 100vh;
 }
