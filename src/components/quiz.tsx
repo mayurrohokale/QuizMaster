@@ -6,7 +6,6 @@ const Quiz: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [userAnswers, setUserAnswers] = useState<{ [questionId: string]: string }>({});
 
   const handleAnswerOptionClick = (option: string) => {
@@ -14,7 +13,6 @@ const Quiz: React.FC = () => {
 
     // Check if the question has already been answered
     if (!userAnswers[questionId]) {
-      setSelectedOption(option);
       setUserAnswers((prevAnswers) => ({
         ...prevAnswers,
         [questionId]: option,
@@ -31,7 +29,6 @@ const Quiz: React.FC = () => {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < quizData.length) {
       setCurrentQuestion(nextQuestion);
-      setSelectedOption(userAnswers[quizData[nextQuestion].id] || null);
     } else {
       setShowScore(true);
     }
@@ -40,7 +37,6 @@ const Quiz: React.FC = () => {
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
-      setSelectedOption(userAnswers[quizData[currentQuestion - 1].id] || null);
     }
   };
 
@@ -48,7 +44,6 @@ const Quiz: React.FC = () => {
     setCurrentQuestion(0);
     setScore(0);
     setShowScore(false);
-    setSelectedOption(null);
     setUserAnswers({});
   };
 
