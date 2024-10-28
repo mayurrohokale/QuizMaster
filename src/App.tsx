@@ -1,27 +1,18 @@
+// src/App.tsx
+import './App.css';
+import AppRoutes from './AppRoutes';
+import Layout from './components/Layout';
 
-import './App.css'
-import AppRoutes from './AppRoutes'
-
-import Layout from './components/Layout'
-
-
-
-function App({children}:{ children: React.ReactNode }) {
- 
-
+function App() {
   return (
-    <>
-        <div className=''>
-          <AppRoutes></AppRoutes>
-          <Layout children={children}>
-        
-          {/* <Header/>
-          <Quiz/> */}
-          </Layout>
-        </div>
-    </>
-  )
-  
+    <div>
+      <Layout>
+        <AppRoutes />
+        {/* <Header/>
+        <Quiz/> */}
+      </Layout>
+    </div>
+  );
 }
 
-export default App
+export default App;

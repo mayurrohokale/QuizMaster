@@ -3,16 +3,16 @@ import React, { ReactNode } from 'react';
 import Header from './Header';
 
 interface LayoutProps {
-    children: ReactNode; // Define the type for children
+  children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-    return (
-        <div className="flex min-h-screen">
-            <Header />
-            <div className="">{children}</div>
-        </div>
-    );
+  return (
+    <div className="flex min-h-screen">
+      <Header />
+      <div className="flex-grow">{children}</div>
+    </div>
+  );
 };
 
 export default Layout;

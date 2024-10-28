@@ -6,7 +6,8 @@ import { Link } from "react-router-dom"
 export default function Home() {
 
     const quitApp = () => {
-        const tg = window.Telegram.WebApp;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const tg = (window as any).Telegram?.WebApp;
         if (tg) {
             tg.close();
         } else {
