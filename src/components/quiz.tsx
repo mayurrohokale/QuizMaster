@@ -11,16 +11,22 @@ const Quiz: React.FC = () => {
   const handleAnswerOptionClick = (option: string) => {
     const questionId = quizData[currentQuestion].id;
 
-    // Check if the question has already been answered
-    if (!userAnswers[questionId]) {
+    // Check if this answer is already selected; if not, set it as selected
+    if (userAnswers[questionId] !== option) {
       setUserAnswers((prevAnswers) => ({
         ...prevAnswers,
         [questionId]: option,
       }));
 
-      // Increase score if the answer is correct
+      // Adjust score based on whether the new selection is correct
       if (option === quizData[currentQuestion].answer) {
-        setScore(score + 1);
+        // Increment score if new option is correct
+        if (userAnswers[questionId] !== quizData[currentQuestion].answer) {
+          setScore(score + 1);
+        }
+      } else if (userAnswers[questionId] === quizData[currentQuestion].answer) {
+        // Decrement score if switching from correct to incorrect answer
+        setScore(score - 1);
       }
     }
   };
@@ -51,10 +57,10 @@ const Quiz: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {showScore ? (
         <div className="score-section bg-[#FFF9DB] rounded-lg shadow-lg p-6 text-center">
-          <h2 className="text-3xl font-bold text-yellow-400 mb-4">
+          <h2 className="text-3xl font-bold text-yellow-600 mb-4">
             Your score is {score} out of {quizData.length}
           </h2>
-          <div className='flex flex-col gap-2'>
+          <div className="flex flex-col gap-2">
             <button
               className="bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 hover:from-yellow-300 hover:to-yellow-500 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow-md transform hover:scale-105 transition ease-in-out duration-300 min-w-[150px]"
               onClick={handleRestartQuiz}
@@ -68,7 +74,7 @@ const Quiz: React.FC = () => {
         </div>
       ) : (
         <div className="question-section bg-[#FFF9DB] rounded-lg shadow-lg p-6 text-center w-full max-w-md">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-600">
             {quizData[currentQuestion].question}
           </h2>
           <div className="options-container space-y-2">
@@ -77,9 +83,10 @@ const Quiz: React.FC = () => {
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
                 className={`w-full rounded-lg px-4 py-2 ${
-                  userAnswers[quizData[currentQuestion].id] === option ? 'bg-yellow-400' : 'bg-yellow-300'
+                  userAnswers[quizData[currentQuestion].id] === option
+                    ? 'bg-yellow-400 border-2 border-yellow-600'
+                    : 'bg-yellow-300'
                 } text-gray-800 hover:bg-yellow-400`}
-                disabled={!!userAnswers[quizData[currentQuestion].id]} // Prevents re-selection once answered
               >
                 {option}
               </button>
