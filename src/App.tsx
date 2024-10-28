@@ -1,17 +1,23 @@
-// import Quiz from './components/quiz'
-import Header from './components/Header'
-import './App.css'
-import Home from './components/Home'
-import Quiz from './components/quiz'
 
-function App() {
+import './App.css'
+import AppRoutes from './AppRoutes'
+
+import Layout from './components/Layout'
+
+
+
+function App({children}:{ children: React.ReactNode }) {
  
 
   return (
     <>
         <div className=''>
-          <Header/>
-          <Quiz/>
+          <AppRoutes></AppRoutes>
+          <Layout children={children}>
+        
+          {/* <Header/>
+          <Quiz/> */}
+          </Layout>
         </div>
     </>
   )
