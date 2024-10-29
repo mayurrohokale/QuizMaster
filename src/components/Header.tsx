@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { TonConnectButton } from '@tonconnect/ui-react';
 
 
 export default function Header() {
@@ -24,8 +24,10 @@ export default function Header() {
 
 
 return (
-    <div className='fixed top-0 left-0 w-full h-[50px] bg-[#4A4A4A] text-sm text-white flex items-center justify-center'>
-         <p>Hello, {username ?? 'User'}! </p>
+    <div className='fixed top-0 left-0 w-full h-[70px] bg-[#4A4A4A] text-sm text-white flex items-center justify-center'>
+         <p className="text-lg font-semibold">Hello, {username ?? 'User'}! </p>
+         <div className="ml-4"> <TonConnectButton  /></div>
+        
     </div>
 )
 }

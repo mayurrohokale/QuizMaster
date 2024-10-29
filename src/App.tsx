@@ -2,16 +2,18 @@
 import './App.css';
 import AppRoutes from './AppRoutes';
 import Layout from './components/Layout';
-
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 function App() {
   return (
-    <div>
-      <Layout>
-        <AppRoutes />
-        {/* <Header/>
+    
+      <TonConnectUIProvider manifestUrl='/tconnect-manifest.json'>
+        <Layout>
+          <AppRoutes />
+          {/* <Header/>
         <Quiz/> */}
-      </Layout>
-    </div>
+        </Layout>
+      </TonConnectUIProvider>
+    
   );
 }
 

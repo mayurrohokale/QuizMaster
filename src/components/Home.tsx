@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom"
-
-
-
+// import { TonConnectButton } from "@tonconnect/ui-react";
 
 export default function Home() {
 
@@ -26,7 +24,8 @@ export default function Home() {
                 onClick={quitApp}
                 className="bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 hover:from-yellow-300 hover:to-yellow-500 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow-md transform hover:scale-105 transition ease-in-out duration-300  min-w-[150px]  ">Quit</button>
              
-           
+             {/* <TonConnectButton /> */}
+             
 
 
 
