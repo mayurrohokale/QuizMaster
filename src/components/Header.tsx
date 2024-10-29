@@ -29,8 +29,8 @@ export default function Header() {
     // };
 
     return (
-        <div className='fixed top-0 left-0 w-full h-[70px] bg-[#4A4A4A] text-sm text-white flex items-center justify-center'>
-            <p className="text-lg font-semibold">Hello, {username ?? 'User'}!</p>
+        <div className='fixed top-0 left-0 w-full h-[70px] bg-[#4A4A4A] text-sm px-4 text-white flex items-center justify-between'>
+            <p className="text-[14px] font-semibold">Hello, {username ?? 'User'}!</p>
             <div className="ml-4">
                 <TonConnectButton />
             </div>
