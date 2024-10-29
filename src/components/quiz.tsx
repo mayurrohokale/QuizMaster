@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { quizData } from './data';
 import { Link } from 'react-router-dom';
 
@@ -7,25 +7,52 @@ const Quiz: React.FC = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState<{ [questionId: string]: string }>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [user, SetUser] = useState<any>();
+  const [quizId, setQuizId] = useState<string>();
+  const [quizStarted, setQuizStarted] = useState(false);
+
+  useEffect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const tg = (window as any).Telegram?.WebApp;
+      if (!tg) return; // Ensure tg exists before calling methods on it
+      tg.ready();
+  
+      const userinfo = tg.initDataUnsafe?.user;
+      console.log(userinfo);
+      if (userinfo) {
+          
+          SetUser(userinfo);
+          
+      }
+  }, []);
+
 
   const handleAnswerOptionClick = (option: string) => {
     const questionId = quizData[currentQuestion].id;
+    if(!quizStarted){
+      setQuizStarted(true);
+      const timestamp = Date.now();
+      const newQuizId = `${user?.id??'unknown'}_${Math.round(timestamp / 1000)}`
+          setQuizId(newQuizId)
+          const displayName = user?.username
+          ? `@${user?.username}`
+          : `${user?.first_name} ${user?.last_name || ''}`;
 
-    // Check if this answer is already selected; if not, set it as selected
+  const message = `Quiz Started\nQuizId: ${newQuizId}\nUser: ${displayName ?? 'Unknown'}`
+  sendTgNotification({message}); 
+    }
     if (userAnswers[questionId] !== option) {
       setUserAnswers((prevAnswers) => ({
         ...prevAnswers,
         [questionId]: option,
       }));
 
-      // Adjust score based on whether the new selection is correct
       if (option === quizData[currentQuestion].answer) {
-        // Increment score if new option is correct
         if (userAnswers[questionId] !== quizData[currentQuestion].answer) {
           setScore(score + 1);
         }
       } else if (userAnswers[questionId] === quizData[currentQuestion].answer) {
-        // Decrement score if switching from correct to incorrect answer
         setScore(score - 1);
       }
     }
@@ -37,7 +64,33 @@ const Quiz: React.FC = () => {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowScore(true);
+      const displayName = user?.username
+              ? `@${user?.username}`
+              : `${user?.first_name} ${user?.last_name || ''}`;
+
+      const message = `Quiz Result\nQuizId: ${quizId}\nUser: ${displayName ?? 'Unknown'}\nScore:  ${score} out of ${quizData?.length}`
+      sendTgNotification({message}); 
     }
+  };
+
+  const sendTgNotification = ({message}: {message: string}) => {
+    
+    const payload = { message };
+   
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/send-notification`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error('Error:', data.error);
+        } else {
+          console.log('Notification sent to Telegram successfully!');
+        }
+      })
+      .catch((error) => console.error('Error sending notification:', error));
   };
 
   const handlePreviousQuestion = () => {
@@ -51,6 +104,7 @@ const Quiz: React.FC = () => {
     setScore(0);
     setShowScore(false);
     setUserAnswers({});
+    setQuizStarted(false);
   };
 
   return (
