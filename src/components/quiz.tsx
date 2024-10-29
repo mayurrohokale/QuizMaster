@@ -15,7 +15,7 @@ const Quiz: React.FC = () => {
   useEffect(() => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const tg = (window as any).Telegram?.WebApp;
-      if (!tg) return; // Ensure tg exists before calling methods on it
+      if (!tg) return; 
       tg.ready();
   
       const userinfo = tg.initDataUnsafe?.user;
