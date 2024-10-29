@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { TonConnectButton, useTonAddress, useTonWallet } from '@tonconnect/ui-react';
+import { TonConnectButton} from '@tonconnect/ui-react';
 
 export default function Header() {
     const [username, setUsername] = useState();
-    const userFriendlyAddress = useTonAddress();
-    const wallet = useTonWallet();
+    // const userFriendlyAddress = useTonAddress();
+    // const wallet = useTonWallet();
 
     useEffect(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,20 +35,20 @@ export default function Header() {
                 <TonConnectButton />
             </div>
 
-            {wallet ? (
+            {/* {wallet ? (
                 <div className="ml-4">
                     <p>Connected wallet address: {userFriendlyAddress}</p>
                     <p>Device: {wallet.device.appName}</p>
-                    {/* <button 
+                    <button 
                         onClick={handleDisconnect}
                         className="bg-red-500 text-white py-1 px-3 rounded mt-2"
                     >
                         Disconnect
-                    </button> */}
+                    </button>
                 </div>
             ) : (
                 <p className="ml-4">No wallet connected</p>
-            )}
+            )} */}
         </div>
     );
 }
