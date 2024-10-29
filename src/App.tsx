@@ -6,7 +6,7 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 function App() {
   return (
     
-      <TonConnectUIProvider manifestUrl='/tconnect-manifest.json'>
+      <TonConnectUIProvider manifestUrl='https://tan-occupational-rook-922.mypinata.cloud/ipfs/QmSVy6aYSip9A7bgSMvbijw7b1Ytw5gdyzaZgKGiis47bf'>
         <Layout>
           <AppRoutes />
           {/* <Header/>
